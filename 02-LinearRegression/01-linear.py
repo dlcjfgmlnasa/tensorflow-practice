@@ -4,36 +4,35 @@ import tensorflow as tf
 x_data = [1,2,3]
 y_data = [1,2,3]
 
-#Variable로 지정을 해야 나중에 업데이트가 가능하다.
-#Try to find values for W and b that compute y_data = W * x_data + b
-#(We know that W should be 1 and b 0, but Tensorflow will
-#figure that out for us)
+# Variable로 지정을 해야 나중에 업데이트가 가능하다.
+# Try to find values for W and b that compute y_data = W * x_data + b
+# (We know that W should be 1 and b 0, but Tensorflow will
+# figure that out for us)
 
 
 W = tf.Variable(tf.random_uniform([1],-1.0,1.0))
 b = tf.Variable(tf.random_uniform([1],-1.0,1.0))
-#Variable로 지정을 해야 나중에 업데이트가 가능하다.
-#-1.0에서 1.0까지 random값을 지정한다.
+# Variable로 지정을 해야 나중에 업데이트가 가능하다.
+# -1.0에서 1.0까지 random값을 지정한다.
 
-#Our hypothesis
+# Our hypothesis
 hypothesis = W * x_data + b #H(x) = W(x) + b
 
 cost = tf.reduce_mean(tf.square(hypothesis - y_data))
 
-#Minimize
+# Minimize
 a = tf.Variable(0.1)  #Learning rate, alpha
 optimizer = tf.train.GradientDescentOptimizer(a)
 train = optimizer.minimize(cost)
 
-
-#Before starting, initialize the variables, We will 'run' this first
+# Before starting, initialize the variables, We will 'run' this first
 init = tf.initialize_all_variables()
 
-#Launch the graph
+# Launch the graph
 sess = tf.Session()
 sess.run(init)
 
-#Fit the Line
+# Fit the Line
 for step in xrange(2001) :
     sess.run(train)
     if step % 20 == 0:
